@@ -18,7 +18,7 @@ export default function Home() {
     setError("");
     try {
       if (isSignup) {
-        const { data, error: signUpError } = await supabase.auth.signUp({
+        const { error: signUpError } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -35,8 +35,8 @@ export default function Home() {
         if (signInError) throw signInError;
         router.push("/swipe");
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }

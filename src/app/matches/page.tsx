@@ -39,9 +39,10 @@ export default function MatchesPage() {
         return;
       }
       // Gegenüber-Profil bestimmen
-      const myMatches = matchesData.map((m: any) => {
-        const other = m.user1_id === user.id ? m.user2 : m.user1;
-        return { id: m.id, other };
+      const myMatches = matchesData.map((m: unknown) => {
+        const match = m as { id: string; user1_id: string; user2_id: string; user1: Profile; user2: Profile };
+        const other = match.user1_id === user.id ? match.user2 : match.user1;
+        return { id: match.id, other };
       });
       setMatches(myMatches);
       setLoading(false);

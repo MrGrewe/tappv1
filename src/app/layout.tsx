@@ -1,5 +1,4 @@
 import "./globals.css";
-import { Geist, Geist_Mono } from "next/font/google";
 import MobileNav from "./components/MobileNav";
 
 export const metadata = {

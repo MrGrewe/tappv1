@@ -39,8 +39,8 @@ export default function Onboarding() {
       });
       if (upsertError) throw upsertError;
       router.push("/swipe");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }

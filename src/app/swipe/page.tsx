@@ -17,7 +17,6 @@ export default function SwipePage() {
   const [current, setCurrent] = useState(0);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
-  const [userRole, setUserRole] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const router = useRouter();
 
@@ -36,10 +35,9 @@ export default function SwipePage() {
         router.push("/onboarding");
         return;
       }
-      setUserRole(myProfile.role);
       // Swipes holen
       const { data: swipes } = await supabase.from("swipes").select("swiped_id").eq("swiper_id", user.id);
-      const swipedIds = swipes?.map((s: any) => s.swiped_id) || [];
+      const swipedIds = swipes?.map((s: unknown) => (s as { swiped_id: string }).swiped_id) || [];
       // Gegenüber-Rolle bestimmen
       const targetRole = myProfile.role === "EMPLOYER" ? "WORKER" : "EMPLOYER";
       // Profile laden, die noch nicht geswiped wurden und nicht das eigene sind
