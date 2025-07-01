@@ -54,7 +54,7 @@ export default function Home() {
             <input
               id="email"
               type="email"
-              placeholder="E-Mail"
+              placeholder="E-Mail-Adresse"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               value={email}
               onChange={e => setEmail(e.target.value)}
