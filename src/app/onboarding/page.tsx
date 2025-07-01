@@ -47,21 +47,21 @@ export default function Onboarding() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-100 to-white">
-      <div className="w-full max-w-xs bg-white rounded-xl shadow p-6">
-        <h2 className="text-xl font-bold mb-4 text-center">Profil anlegen</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 px-4">
+      <div className="w-full max-w-md bg-white/90 rounded-2xl shadow-xl p-8 border border-gray-100">
+        <h2 className="text-2xl font-extrabold mb-6 text-center text-gray-900 tracking-tight">Profil anlegen</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <input
             type="text"
             placeholder="Name"
-            className="input input-bordered w-full rounded px-3 py-2 border"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={name}
             onChange={e => setName(e.target.value)}
             required
           />
           <textarea
             placeholder="Kurzbeschreibung (Bio)"
-            className="input input-bordered w-full rounded px-3 py-2 border min-h-[60px]"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition min-h-[60px]"
             value={bio}
             onChange={e => setBio(e.target.value)}
             required
@@ -71,18 +71,18 @@ export default function Onboarding() {
               <input
                 type="text"
                 placeholder="Skill hinzufügen"
-                className="input input-bordered rounded px-3 py-2 border flex-1"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 value={skillInput}
                 onChange={e => setSkillInput(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); }}}
               />
-              <button type="button" onClick={addSkill} className="bg-blue-500 text-white px-3 py-1 rounded">+</button>
+              <button type="button" onClick={addSkill} className="bg-blue-500 text-white px-4 py-2 rounded-lg font-bold shadow hover:bg-blue-600 transition">+</button>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.map(skill => (
-                <span key={skill} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs flex items-center">
+                <span key={skill} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center font-medium shadow-sm">
                   {skill}
-                  <button type="button" className="ml-1 text-red-500" onClick={() => removeSkill(skill)}>×</button>
+                  <button type="button" className="ml-2 text-red-500 hover:text-red-700 font-bold" onClick={() => removeSkill(skill)}>×</button>
                 </span>
               ))}
             </div>
@@ -90,20 +90,20 @@ export default function Onboarding() {
           <input
             type="text"
             placeholder="Standort"
-            className="input input-bordered w-full rounded px-3 py-2 border"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={location}
             onChange={e => setLocation(e.target.value)}
             required
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white rounded py-2 font-semibold mt-2 hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white rounded-lg py-3 font-semibold text-lg mt-2 hover:bg-blue-700 active:bg-blue-800 transition shadow-md disabled:opacity-60"
             disabled={loading}
           >
             {loading ? "Speichern..." : "Profil speichern"}
           </button>
         </form>
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        {error && <p className="text-red-600 text-center text-base mt-4 font-medium bg-red-50 rounded p-2 border border-red-200">{error}</p>}
       </div>
     </main>
   );

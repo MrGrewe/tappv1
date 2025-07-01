@@ -51,30 +51,30 @@ export default function MatchesPage() {
   }, [router]);
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">Lädt...</div>;
+    return <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 text-xl font-semibold text-gray-700">Lädt...</div>;
   }
 
   if (matches.length === 0) {
-    return <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">Noch keine Matches.<br />Swipen, um neue Kontakte zu finden!</div>;
+    return <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-gradient-to-b from-gray-100 to-gray-200 text-lg font-semibold text-gray-600">Noch keine Matches.<br />Swipen, um neue Kontakte zu finden!</div>;
   }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-100 to-white">
-      <div className="w-full max-w-xs space-y-4">
-        <h2 className="text-xl font-bold mb-4 text-center">Deine Matches</h2>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 px-4">
+      <div className="w-full max-w-md space-y-6">
+        <h2 className="text-2xl font-extrabold mb-6 text-center text-gray-900 tracking-tight">Deine Matches</h2>
         {matches.map(match => (
-          <div key={match.id} className="bg-white rounded-xl shadow p-4 flex flex-col gap-2">
+          <div key={match.id} className="bg-white/90 rounded-2xl shadow-xl p-6 flex flex-col gap-3 border border-gray-100">
             <div>
-              <span className="font-semibold text-lg">{match.other.name}</span>
+              <span className="font-semibold text-lg text-gray-900">{match.other.name}</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {match.other.skills.map(skill => (
-                <span key={skill} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{skill}</span>
+                <span key={skill} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium shadow-sm">{skill}</span>
               ))}
             </div>
-            <div className="text-gray-500 text-sm">{match.other.location}</div>
+            <div className="text-gray-500 text-base font-semibold">{match.other.location}</div>
             <button
-              className="bg-blue-600 text-white rounded py-2 font-semibold mt-2 hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white rounded-lg py-2 font-semibold text-base mt-2 hover:bg-blue-700 active:bg-blue-800 transition shadow-md"
               onClick={() => router.push(`/chat/${match.id}`)}
             >
               Chat starten
