@@ -47,24 +47,36 @@ export default function Home() {
       <div className="w-full max-w-md bg-white/90 rounded-2xl shadow-xl p-8 border border-gray-100">
         <h1 className="text-3xl font-extrabold mb-6 text-center text-gray-900 tracking-tight">JobMatch</h1>
         <form onSubmit={handleAuth} className="flex flex-col gap-5">
-          <input
-            type="email"
-            placeholder="E-Mail"
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-          />
-          <input
-            type="password"
-            placeholder="Passwort"
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-          />
+          <div>
+            <label htmlFor="email" className="block mb-1 text-base font-semibold text-gray-700 flex items-center gap-2">
+              <span className="inline-block text-lg">📧</span> E-Mail
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="E-Mail"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block mb-1 text-base font-semibold text-gray-700 flex items-center gap-2">
+              <span className="inline-block text-lg">🔒</span> Passwort
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Passwort"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+          </div>
           {isSignup && (
             <div className="flex gap-4 justify-center">
               <label className="flex items-center gap-2 cursor-pointer text-base">
