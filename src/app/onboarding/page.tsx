@@ -30,12 +30,15 @@ export default function Onboarding() {
     try {
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       if (userError || !user) throw userError || new Error("Nicht eingeloggt");
+      const role = user.user_metadata?.role;
+      if (!role) throw new Error("Rolle nicht gefunden. Bitte neu einloggen.");
       const { error: upsertError } = await supabase.from("profiles").upsert({
         id: user.id,
         name,
         bio,
         skills,
         location,
+        role,
       });
       if (upsertError) throw upsertError;
       router.push("/swipe");
@@ -54,14 +57,14 @@ export default function Onboarding() {
           <input
             type="text"
             placeholder="Name"
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={name}
             onChange={e => setName(e.target.value)}
             required
           />
           <textarea
             placeholder="Kurzbeschreibung (Bio)"
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition min-h-[60px]"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition min-h-[60px]"
             value={bio}
             onChange={e => setBio(e.target.value)}
             required
@@ -71,7 +74,7 @@ export default function Onboarding() {
               <input
                 type="text"
                 placeholder="Skill hinzufügen"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 text-base text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 value={skillInput}
                 onChange={e => setSkillInput(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); }}}
@@ -90,7 +93,7 @@ export default function Onboarding() {
           <input
             type="text"
             placeholder="Standort"
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={location}
             onChange={e => setLocation(e.target.value)}
             required
