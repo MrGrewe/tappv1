@@ -1,8 +1,6 @@
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
-import dynamic from "next/dynamic";
-
-const MobileNav = dynamic(() => import("./components/MobileNav"), { ssr: false });
+import MobileNav from "./components/MobileNav";
 
 export const metadata = {
   title: "Create Next App",
