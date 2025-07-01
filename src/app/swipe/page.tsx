@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { supabase } from "../layout";
+import { supabase } from "@/supabaseClient";
 import TinderCard from "react-tinder-card";
 import { useRouter } from "next/navigation";
 

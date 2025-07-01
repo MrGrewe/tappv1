@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "../../layout";
+import { supabase } from "@/supabaseClient";
 import { useParams, useRouter } from "next/navigation";
 
 interface Message {
