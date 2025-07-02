@@ -4,6 +4,22 @@ import { supabase } from "@/supabaseClient";
 import TinderCard from "react-tinder-card";
 import { useRouter } from "next/navigation";
 
+interface WorkerProfile {
+  id: string;
+  full_name: string;
+  bio: string;
+  skills: string[];
+  location: string;
+}
+
+interface EmployerProfile {
+  id: string;
+  company_name: string;
+  job_description: string;
+  skills: string[];
+  location: string;
+}
+
 type Profile =
   | {
       id: string;
@@ -49,15 +65,15 @@ export default function SwipePage() {
       const { data: swipes } = await supabase.from("swipes").select("swiped_id").eq("swiper_id", user.id);
       const swipedIds = swipes?.map((s: unknown) => (s as { swiped_id: string }).swiped_id) || [];
       // Gegenüber-Tabelle bestimmen
-      let otherProfiles: any[] = [];
+      let otherProfiles: Profile[] = [];
       if (userRole === "EMPLOYER") {
         // Arbeitgeber sieht Arbeitnehmer
         const { data } = await supabase
           .from("worker_profiles")
           .select("id, full_name, bio, skills, location");
-        otherProfiles = (data || [])
-          .filter((p: any) => p.id !== user.id && !swipedIds.includes(p.id))
-          .map((p: any) => ({
+        otherProfiles = (data as WorkerProfile[] || [])
+          .filter((p) => p.id !== user.id && !swipedIds.includes(p.id))
+          .map((p) => ({
             id: p.id,
             name: p.full_name,
             bio: p.bio,
@@ -70,9 +86,9 @@ export default function SwipePage() {
         const { data } = await supabase
           .from("employer_profiles")
           .select("id, company_name, job_description, skills, location");
-        otherProfiles = (data || [])
-          .filter((p: any) => p.id !== user.id && !swipedIds.includes(p.id))
-          .map((p: any) => ({
+        otherProfiles = (data as EmployerProfile[] || [])
+          .filter((p) => p.id !== user.id && !swipedIds.includes(p.id))
+          .map((p) => ({
             id: p.id,
             name: p.company_name,
             bio: p.job_description || '',

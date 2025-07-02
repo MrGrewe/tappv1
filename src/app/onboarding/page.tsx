@@ -49,8 +49,6 @@ export default function Onboarding() {
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
 
   // Stepper-Design
-  const PRIMARY = "#6C38FF";
-  const ACCENT = "#FFD600";
   const stepsEmployer = [
     { label: "Basisdaten" },
     { label: "Jobdetails" },

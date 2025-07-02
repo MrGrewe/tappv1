@@ -2,10 +2,13 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+import { ComponentProps } from 'react';
 
-function DLogoModel(props: any) {
-  const group = useRef<any>();
-  const { scene } = useGLTF('/dlogo.glb');
+type GLTFResult = { scene: THREE.Group };
+function DLogoModel(props: ComponentProps<'group'>) {
+  const group = useRef<THREE.Group>(null);
+  const { scene } = useGLTF('/dlogo.glb') as GLTFResult;
   useFrame(() => {
     if (group.current) {
       group.current.rotation.y += 0.01; // langsame Rotation
