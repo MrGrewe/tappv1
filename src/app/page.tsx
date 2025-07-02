@@ -48,22 +48,14 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-[#18544b]">
       {/* Bild und Begrüßung */}
-      <div className="hidden md:flex w-1/2 h-screen relative items-center justify-center">
-        <div className="absolute inset-0 rounded-tl-[48px] rounded-br-[48px] bg-white shadow-2xl z-0" style={{ boxShadow: '0 8px 32px 0 rgba(60,60,60,0.10)' }} />
-        <img
-          src="/logobg.jpg"
-          alt="JobMatch Hintergrund"
-          className="absolute inset-0 w-full h-full object-cover rounded-tl-[48px] rounded-br-[48px] z-10 brightness-105"
-          style={{ filter: 'brightness(1.08)' }}
-        />
-        <div className="absolute inset-0 rounded-tl-[48px] rounded-br-[48px] bg-black/30 z-20" />
-        <div className="relative z-30 flex flex-col h-full justify-end p-12 pb-16">
+      <div className="hidden md:flex w-1/2 h-screen relative items-center justify-center bg-gray-100 rounded-tl-[48px] rounded-br-[48px] shadow-2xl">
+        <div className="relative z-10 flex flex-col h-full justify-end p-12 pb-16 w-full">
           <div className="mb-10">
             <Logo3D />
             <span className="inline-block bg-white/80 text-gray-900 text-xs font-semibold rounded-full px-4 py-1 mb-4 shadow">JobMatch Netzwerk</span>
-            <h1 className="text-3xl font-serif font-bold text-white mb-4 drop-shadow-lg" style={{ fontFamily: 'serif' }}>Finde Talente. Finde Jobs. Finde deinen perfekten Match.</h1>
-            <p className="text-lg text-white/90 font-light mb-6" style={{ fontFamily: 'serif' }}>Greife auf unser Netzwerk aus über 100.000 Fachkräften und Unternehmen zu – einfach, schnell und sicher.</p>
-            <div className="flex gap-6 text-white/90 text-sm">
+            <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4 drop-shadow-lg" style={{ fontFamily: 'serif' }}>Finde Talente. Finde Jobs. Finde deinen perfekten Match.</h1>
+            <p className="text-lg text-gray-700 font-light mb-6" style={{ fontFamily: 'serif' }}>Greife auf unser Netzwerk aus über 100.000 Fachkräften und Unternehmen zu – einfach, schnell und sicher.</p>
+            <div className="flex gap-6 text-gray-700 text-sm">
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M8 12l2 2 4-4" /></svg>
                 <span>100.000+ geprüfte Profile</span>
@@ -178,18 +170,11 @@ export default function Home() {
         </form>
         {/* Mobile: Bild und Footer */}
         <div className="md:hidden flex flex-col items-center mt-8 w-full">
-          <div className="relative w-full h-40 mb-4">
-            <div className="absolute inset-0 rounded-tl-[32px] rounded-br-[32px] bg-white shadow-2xl z-0" style={{ boxShadow: '0 8px 32px 0 rgba(60,60,60,0.10)' }} />
-            <img
-              src="/logobg.jpg"
-              alt="JobMatch Hintergrund"
-              className="absolute inset-0 w-full h-full object-cover rounded-tl-[32px] rounded-br-[32px] z-10 brightness-105"
-              style={{ filter: 'brightness(1.08)' }}
-            />
-            <div className="absolute inset-0 rounded-tl-[32px] rounded-br-[32px] bg-black/30 z-20" />
-            <div className="absolute bottom-4 left-4 right-4 z-30">
-              <h1 className="text-lg font-serif font-bold text-white mb-1 drop-shadow-lg" style={{ fontFamily: 'serif' }}>Finde Talente. Finde Jobs.</h1>
-              <p className="text-xs text-white/90 font-light mb-1" style={{ fontFamily: 'serif' }}>100.000+ geprüfte Profile & Unternehmen</p>
+          <div className="relative w-full h-40 mb-4 bg-gray-100 rounded-tl-[32px] rounded-br-[32px] flex flex-col items-center justify-end">
+            <Logo3D />
+            <div className="absolute bottom-4 left-4 right-4 z-10">
+              <h1 className="text-lg font-serif font-bold text-gray-900 mb-1 drop-shadow-lg" style={{ fontFamily: 'serif' }}>Finde Talente. Finde Jobs.</h1>
+              <p className="text-xs text-gray-700 font-light mb-1" style={{ fontFamily: 'serif' }}>100.000+ geprüfte Profile & Unternehmen</p>
             </div>
           </div>
           <div className="flex flex-col items-center gap-2 text-xs text-white/80">

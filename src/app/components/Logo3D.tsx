@@ -16,10 +16,12 @@ function DLogoModel(props: any) {
 
 export default function Logo3D() {
   return (
-    <div style={{ width: '100%', height: 180, marginBottom: 16 }}>
-      <Canvas camera={{ position: [0, 0, 3] }}>
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[2, 2, 2]} intensity={0.7} />
+    <div style={{ width: '100%', maxWidth: 500, height: 380, margin: '0 auto 24px auto' }}>
+      <Canvas camera={{ position: [0, 0, 4.5], fov: 35 }} style={{ borderRadius: 24 }} gl={{ preserveDrawingBuffer: true, alpha: true }}>
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[4, 8, 8]} intensity={1.2} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} />
+        <directionalLight position={[-4, -4, 2]} intensity={0.5} />
+        <pointLight position={[0, 2, 6]} intensity={0.4} />
         <DLogoModel />
         <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />
       </Canvas>

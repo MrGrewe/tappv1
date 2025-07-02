@@ -4,13 +4,23 @@ import { supabase } from "@/supabaseClient";
 import TinderCard from "react-tinder-card";
 import { useRouter } from "next/navigation";
 
-interface Profile {
-  id: string;
-  name: string;
-  bio: string;
-  skills: string[];
-  location: string;
-}
+type Profile =
+  | {
+      id: string;
+      name: string;
+      bio: string;
+      skills: string[];
+      location: string;
+      type: 'WORKER';
+    }
+  | {
+      id: string;
+      name: string;
+      bio: string;
+      skills: string[];
+      location: string;
+      type: 'EMPLOYER';
+    };
 
 export default function SwipePage() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -29,26 +39,51 @@ export default function SwipePage() {
         return;
       }
       setUserId(user.id);
-      // Eigene Rolle holen
-      const { data: myProfile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
-      if (!myProfile) {
+      // Rolle aus User-Metadaten holen
+      const userRole = user.user_metadata?.role;
+      if (!userRole) {
         router.push("/onboarding");
         return;
       }
       // Swipes holen
       const { data: swipes } = await supabase.from("swipes").select("swiped_id").eq("swiper_id", user.id);
       const swipedIds = swipes?.map((s: unknown) => (s as { swiped_id: string }).swiped_id) || [];
-      // Gegenüber-Rolle bestimmen
-      const targetRole = myProfile.role === "EMPLOYER" ? "WORKER" : "EMPLOYER";
-      // Profile laden, die noch nicht geswiped wurden und nicht das eigene sind
-      const { data: otherProfiles } = await supabase
-        .from("profiles")
-        .select("id, name, bio, skills, location")
-        .eq("role", targetRole)
-        .not("id", "in", `(${[...swipedIds, user.id].map(id => `'${id}'`).join(",")})`);
-      setProfiles(otherProfiles || []);
+      // Gegenüber-Tabelle bestimmen
+      let otherProfiles: any[] = [];
+      if (userRole === "EMPLOYER") {
+        // Arbeitgeber sieht Arbeitnehmer
+        const { data } = await supabase
+          .from("worker_profiles")
+          .select("id, full_name, bio, skills, location");
+        otherProfiles = (data || [])
+          .filter((p: any) => p.id !== user.id && !swipedIds.includes(p.id))
+          .map((p: any) => ({
+            id: p.id,
+            name: p.full_name,
+            bio: p.bio,
+            skills: p.skills || [],
+            location: p.location,
+            type: 'WORKER',
+          }));
+      } else {
+        // Arbeitnehmer sieht Arbeitgeber
+        const { data } = await supabase
+          .from("employer_profiles")
+          .select("id, company_name, job_description, skills, location");
+        otherProfiles = (data || [])
+          .filter((p: any) => p.id !== user.id && !swipedIds.includes(p.id))
+          .map((p: any) => ({
+            id: p.id,
+            name: p.company_name,
+            bio: p.job_description || '',
+            skills: p.skills || [],
+            location: p.location,
+            type: 'EMPLOYER',
+          }));
+      }
+      setProfiles(otherProfiles);
       setCurrent(0);
-      setDone((otherProfiles || []).length === 0);
+      setDone(otherProfiles.length === 0);
       setLoading(false);
     };
     fetchProfiles();
@@ -99,14 +134,6 @@ export default function SwipePage() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-[#18544b] font-serif text-[#171717]">
-      {/* Bildbereich (optional) */}
-      <div className="hidden md:flex w-1/2 h-screen relative items-center justify-center">
-        <img
-          src="/logobg.jpg"
-          alt="Swipe"
-          className="absolute inset-0 w-full h-full object-cover rounded-r-3xl"
-        />
-      </div>
       {/* Card-Bereich */}
       <div className="flex-1 flex flex-col justify-center items-center bg-white min-h-screen py-8 px-4 font-serif text-[#171717]">
         <div className="w-full max-w-xl flex flex-col items-center font-serif text-[#171717]">
@@ -119,9 +146,9 @@ export default function SwipePage() {
               <h2 className="text-2xl font-extrabold mb-2 text-gray-900 tracking-tight">{profile.name}</h2>
               <p className="text-gray-700 mb-4 text-base text-center font-medium">{profile.bio}</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {profile.skills.map(skill => (
+                {profile.skills && profile.skills.length > 0 ? profile.skills.map(skill => (
                   <span key={skill} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium shadow-sm">{skill}</span>
-                ))}
+                )) : <span className="text-gray-400">Keine Skills angegeben</span>}
               </div>
               <p className="text-gray-500 text-base font-semibold">{profile.location}</p>
             </div>
