@@ -187,7 +187,7 @@ export default function Onboarding() {
       </div>
       {/* Formularbereich rechts */}
       <div className="flex-1 flex flex-col justify-center items-center bg-white min-h-screen py-8 px-4">
-        <div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-3 md:p-12 border border-gray-100 flex flex-col gap-4 md:gap-8 font-serif text-[#171717]">
+        <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-3 md:p-8 border border-gray-100 flex flex-col gap-4 md:gap-6 font-serif text-[#171717]">
           {!role && (
             <div className="flex flex-col gap-6 items-center">
               <h2 className="text-xl md:text-2xl font-extrabold mb-2 text-center text-gray-900 tracking-tight">Profiltyp wählen</h2>
@@ -450,7 +450,7 @@ export default function Onboarding() {
             margin-bottom: 0.5rem;
             min-height: 48px;
             max-width: 100%;
-            padding-right: 3rem;
+            padding-right: 2.5rem;
             box-shadow: none;
           }
           .input.filled {
@@ -472,15 +472,15 @@ export default function Onboarding() {
           }
           @media (min-width: 768px) {
             .input {
-              max-width: 40rem;
+              max-width: 28rem;
             }
             .input-wrapper {
-              max-width: 40rem;
+              max-width: 28rem;
               margin-left: auto;
               margin-right: auto;
             }
             .onboarding-form {
-              max-width: 40rem;
+              max-width: 28rem;
               margin-left: auto;
               margin-right: auto;
             }
@@ -495,7 +495,7 @@ export default function Onboarding() {
           }
           .input-check {
             position: absolute;
-            right: 1.25rem;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
