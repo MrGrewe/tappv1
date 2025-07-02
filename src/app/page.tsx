@@ -12,7 +12,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isSignup, setIsSignup] = useState(false);
-  const [role, setRole] = useState<"EMPLOYER" | "WORKER">("WORKER");
   const router = useRouter();
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -24,9 +23,6 @@ export default function Home() {
         const { error: signUpError } = await supabase.auth.signUp({
           email,
           password,
-          options: {
-            data: { role },
-          },
         });
         if (signUpError) throw signUpError;
         router.push("/onboarding");
